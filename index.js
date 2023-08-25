@@ -16,32 +16,32 @@ app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname, "public")))
 
 // ini untuk page lihat semua produk dari database
-app.get('/:kecamatan', async (req, res) => {
-    let bimbel;
-    try {
-        let url = 'https://be-bimbelku-v1-production.up.railway.app/v1/api/bimbel/';
-        if (req.params.kecamatan) {
-            url += `${req.params.kecamatan}`;
-        }
-        const response = await axios.get(url)
-        bimbel = response.data
-    } catch (error) {
-        console.log(error);
-        res.send('Terjadi kesalahan saat mengambil data dari API.');
-        return;
-    }
-    console.log(bimbel)
-    res.render('index', {
-        bimbel
-    })
-})
+// app.get('/:kecamatan', async (req, res) => {
+//     let bimbel;
+//     try {
+//         let url = 'https://be-bimbelku-v1-production.up.railway.app/v1/api/bimbel/';
+//         if (req.params.kecamatan) {
+//             url += `${req.params.kecamatan}`;
+//         }
+//         const response = await axios.get(url)
+//         bimbel = response.data
+//     } catch (error) {
+//         console.log(error);
+//         res.send('Terjadi kesalahan saat mengambil data dari API.');
+//         return;
+//     }
+//     console.log(bimbel)
+//     res.render('index', {
+//         bimbel
+//     })
+// })
 app.get('/', async (req, res) => {
     let bimbel;
     try {
         let url = 'https://be-bimbelku-v1-production.up.railway.app/v1/api/bimbel/';
-        if (req.params.kecamatan) {
-            url += `${req.params.kecamatan}`;
-        }
+        // if (req.params.kecamatan) {
+        //     url += `${req.params.kecamatan}`;
+        // }
         const response = await axios.get(url)
         bimbel = response.data
     } catch (error) {
@@ -54,6 +54,16 @@ app.get('/', async (req, res) => {
         bimbel
     })
 })
+
+app.get('/admin/bimbel/create', (req, res) => {
+    res.render("bimbel/create")
+})
+
+app.get('/admin/bimbel/edit/:id', async (req, res) => {
+    res.render("bimbel/edit")
+})
+
+// delete produk
 app.listen(PORT, () => {
     console.log(`App Running on localhost: ${PORT}`)
 })
