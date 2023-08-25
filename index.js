@@ -59,8 +59,24 @@ app.get('/admin/bimbel/create', (req, res) => {
     res.render("bimbel/create")
 })
 
-app.get('/admin/bimbel/edit/:id', async (req, res) => {
-    res.render("bimbel/edit")
+app.get('/:id', async (req, res) => {
+    let bimbel;
+    try {
+        let url = 'https://be-bimbelku-v1-production.up.railway.app/v1/api/bimbel/id/';
+        if (req.params.id) {
+            url += `${req.params.id}`;
+        }
+        const response = await axios.get(url)
+        bimbel = response.data
+    } catch (error) {
+        console.log(error);
+        res.send('Terjadi kesalahan saat mengambil data dari API.');
+        return;
+    }
+    console.log(bimbel)
+    res.render("bimbel/edit",{
+        bimbel
+    })
 })
 
 // delete produk

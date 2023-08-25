@@ -9,28 +9,40 @@
 </head>
 
 <body class="landing is-preload">
-    <h1>Input Data Bimbel Baru</h1>
-    <form action="https://be-bimbelku-v1-production.up.railway.app/v1/api/bimbel/" method="PUT" enctype="multipart/form-data">
-        <label for="nama">nama</label>  
-        <input type="text" name="nama" ><br>
-        <label for="">url_location</label>
-        <input type="text" name="url_location" ><br>
-        <label for="">phone</label>
-        <input type="text" name="phone" ><br>
-        <label for="">jam_buka</label>
-        <input type="text" name="jam_buka" ><br>
-        <label for="">jam tutup</label>
-        <input type="text" name="hari_buka"><br>
-        <label for="">url_pic</label>
-        <input type="text" name="url_pic" ><br>
-        <label for="">kecamatan</label>
-        <input type="text" name="kecamatan" ><br>
-        <label for="">website</label>
-        <input type="text" name="website" ><br>
-        <label for="">alamat</label>
-        <input type="text" name="alamat" ><br>
-        <button type="submit">Add</button>
-    </form>
+    <div>
+        <% if (bimbel.data && bimbel.data.length > 0) { %>
+        <% bimbel.data.map(item => { %>
+        <h1>Input Data Bimbel Baru</h1>
+        <form action="https://be-bimbelku-v1-production.up.railway.app/v1/api/bimbel/<%= item.id %>/update" method="post">
+            <label for="nama">nama</label>
+            <input type="text" name="nama" value="<%= item.nama %>"><br>
+            <label for="">url_location</label>
+            <input type="text" name="url_location" value="<%= item.url_location %>"><br>
+            <label for="">phone</label>
+            <input type="text" name="phone" value="<%= item.phone %>"><br>
+            <label for="">jam_buka</label>
+            <input type="text" name="jam_buka" value="<%= item.jam_buka %>"><br>
+            <label for="">jam tutup</label>
+            <input type="text" name="hari_buka" value="<%= item.hari_buka %>"><br>
+            <label for="">url_pic</label>
+            <input type="text" name="url_pic" value="<%= item.url_pic %>"><br>
+            <label for="">kecamatan</label>
+            <input type="text" name="kecamatan" value="<%= item.kecamatan %>"><br>
+            <label for="">website</label>
+            <input type="text" name="website" value="<%= item.website %>"><br>
+            <label for="">alamat</label>
+            <input type="text" name="alamat" value="<%= item.alamat %>"><br>
+            <button type="submit">UPDATE</button>
+        </form>
+        <form action="https://be-bimbelku-v1-production.up.railway.app/v1/api/bimbel/<%= item.id %>/delete" method="post">
+            <button type="submit">DELETE</button>
+        </form>
+        <% }) %>
+        <% } else { %>
+        <p>Tidak ada data yang ditemukan.</p>
+        <% } %>
+    </div>
+
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.dropotron.min.js"></script>
